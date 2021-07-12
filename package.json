@@ -1,0 +1,32 @@
+{
+  "name": "pool-showcase-server",
+  "version": "1.0.0",
+  "description": "osu! Mappool Showcase Server",
+  "main": "main.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "lint": "eslint -c .eslintrc --ext .ts ./src",
+    "start": "npm run build && electron ./dist/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Coderbora/pool-showcase-server.git"
+  },
+  "keywords": [
+    "osu"
+  ],
+  "author": "Coderbora",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Coderbora/pool-showcase-server/issues"
+  },
+  "homepage": "https://github.com/Coderbora/pool-showcase-server#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.28.2",
+    "@typescript-eslint/parser": "^4.28.2",
+    "electron": "^13.1.6",
+    "eslint": "^7.30.0",
+    "typescript": "^4.3.5"
+  }
+}
