@@ -8,9 +8,10 @@ function createWindow() {
       preload: path.join(__dirname, "preload.js"),
     },
     width: 800,
+    darkTheme: true
   });
-
-  mainWindow.loadFile(path.join(__dirname, "../app/index.html"));
+  mainWindow.setMenuBarVisibility(false);
+  mainWindow.loadFile(path.join(__dirname, "../client/index.html"));
 
   mainWindow.webContents.openDevTools();
 }

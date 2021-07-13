@@ -2,12 +2,15 @@
   "name": "pool-showcase-server",
   "version": "1.0.0",
   "description": "osu! Mappool Showcase Server",
-  "main": "main.js",
+  "main": "dist/electron/main.js",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
-    "lint": "eslint -c .eslintrc --ext .ts ./src",
-    "start": "npm run build && electron ./dist/main.js"
+    "vite:dev": "vite",
+    "vite:build": "vite build",
+    "vite:serve": "vite preview",
+    "ts:build": "tsc",
+    "ts:watch": "tsc -w",
+    "lint": "eslint -c .eslintrc --ext .ts --ext .vue src",
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
@@ -25,8 +28,16 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
+    "@vitejs/plugin-vue": "^1.2.5",
+    "@vue/compiler-sfc": "^3.1.4",
     "electron": "^13.1.6",
     "eslint": "^7.30.0",
-    "typescript": "^4.3.5"
+    "eslint-plugin-vue": "^7.13.0",
+    "typescript": "^4.3.5",
+    "vite": "^2.4.2"
+  },
+  "dependencies": {
+    "bootstrap": "^5.0.2",
+    "vue": "^3.1.4"
   }
 }
