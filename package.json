@@ -6,9 +6,9 @@
   "scripts": {
     "vite:dev": "vite",
     "vite:build": "vite build",
-    "vite:serve": "vite preview",
-    "ts:build": "tsc",
-    "ts:watch": "tsc -w",
+    "vite:watch": "vite build -w",
+    "ts:build": "tsc --project src/electron/tsconfig.json",
+    "ts:watch": "tsc --project src/electron/tsconfig.json -w",
     "lint": "eslint -c .eslintrc --ext .ts --ext .vue src",
     "start": "electron ."
   },
@@ -37,7 +37,11 @@
     "vite": "^2.4.2"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
-    "vue": "^3.1.4"
+    "vue": "^3.1.4",
+    "vue-router": "^4.0.10",
+    "vuex": "^4.0.2",
+    "vuex-persistedstate": "^4.0.0-beta.3"
   }
 }

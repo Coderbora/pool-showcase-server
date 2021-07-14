@@ -3,12 +3,11 @@
 body {
     background: #333;
     color: white;
-    font-family: 'Open Sans', sans-serif;
     text-align: center;
 }
 
-.branding {
-    margin: 2rem;
+:root {
+    --bs-font-sans-serif: "Open Sans";
 }
 
 .card {

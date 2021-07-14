@@ -9,6 +9,7 @@ export default defineConfig({
   plugins: [vue()],
   build: {
     outDir: path.resolve(__dirname, "dist", "client"),
-    sourcemap: true
+    sourcemap: true,
+    emptyOutDir: true,
   }
 })

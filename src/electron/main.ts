@@ -8,7 +8,7 @@ function createWindow() {
       preload: path.join(__dirname, "preload.js"),
     },
     width: 800,
-    darkTheme: true
+    darkTheme: true,
   });
   mainWindow.setMenuBarVisibility(false);
   mainWindow.loadFile(path.join(__dirname, "../client/index.html"));
