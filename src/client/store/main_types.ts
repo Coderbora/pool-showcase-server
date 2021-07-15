@@ -1,5 +1,4 @@
 export const SET_INITIALIZED = 'SET_INITIALIZED';
 
 export const UPDATE_API_KEY = 'UPDATE_API_KEY';
-export const UPDATE_SERVER_PORT = 'UPDATE_SERVER_PORT';
 export const UPDATE_POOL = 'UPDATE_POOL';

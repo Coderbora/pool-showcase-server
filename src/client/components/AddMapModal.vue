@@ -40,10 +40,17 @@
 
     <button
       type="button"
-      class="btn btn-primary my-2"
-      @click="$emit('closeModal')"
+      class="btn btn-primary mx-2"
+      @click="addMap"
     >
       Add
+    </button>
+    <button
+      type="button"
+      class="btn btn-secondary mx-2"
+      @click="$emit('closeModal')"
+    >
+      Close
     </button>
   </Modal>
 </template>
@@ -56,6 +63,36 @@ import TextInput from './TextInput.vue';
 import Modal from './Modal.vue';
 import { mapState } from 'vuex';
 import { Map } from '../store/main';
+import { UPDATE_POOL } from '../store/main_types';
+
+function initialState() {
+  return {
+    beatmapUrl: "",
+
+    beatmap: {
+      id: -1,
+
+      title: "",
+      artist: "",
+      version: "",
+      img_url: "",
+
+      diff: {
+          cs: 0,
+          hp: 0,
+          od: 0,
+          ar: 0,
+          sr: 0
+      },
+
+      length: 0,
+      bpm: 0,
+
+      modpool: "NM",
+      modpool_id: 0,
+    } as Map,
+  }
+}
 
 export default defineComponent({
   name: "AddMapModal",
@@ -71,37 +108,20 @@ export default defineComponent({
   },
   emits: ['closeModal'],
   data() {
-    return {
-      beatmapUrl: "",
-
-      beatmap: {
-        id: -1,
-
-        title: "",
-        artist: "",
-        version: "",
-        img_url: "",
-
-        diff: {
-            cs: 0,
-            hp: 0,
-            od: 0,
-            ar: 0,
-            sr: 0
-        },
-
-        length: 0,
-        bpm: 0,
-
-        modpool: "NM",
-        modpool_id: 0,
-      } as Map,
-    }
+    return initialState();
   },
   computed: {
     ...mapState({
       apiKey: (state: any) => state.apiKey as string,
-    })
+    }),
+    showcasePool: {
+      get (): Map[] {
+          return this.$store.state.showcasePool;
+      },
+      set (value: Map[]) {
+          this.$store.commit(UPDATE_POOL, value);
+      },
+    }
   },
   methods: {
     parse_beatmap_url: function (beatmap_url: string) {
@@ -141,7 +161,10 @@ export default defineComponent({
         length: mapDetails[0].total_length,
         bpm: mapDetails[0].bpm,
       });
-      console.log(mapDetails[0]);
+    },
+    addMap() {
+      this.showcasePool = [this.beatmap, ...this.showcasePool];
+      this.$emit('closeModal');
     }
   }
 })

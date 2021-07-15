@@ -15,11 +15,6 @@
           input-type="password"
           @changeValue="apiKey = $event"
         />
-        <TextInput
-          input-name="Server Port"
-          :value="serverPort"
-          @changeValue="serverPort = $event"
-        />
         <button
           type="button"
           class="btn btn-primary mx-2"
@@ -58,7 +53,7 @@
       >
         <td>{{ map['modpool'] }}{{ map['modpool_id'] }}</td>
         <td>{{ map['artist'] }} - {{ map['title'] }} [{{ map['version'] }}]</td>
-        <td>{{ map['playedBy']['username'] }}</td>
+        <td>{{ map['playedBy'] ? map['playedBy']['username'] : "-" }}</td>
         <td>Selam</td>
       </tr>
     </table>
@@ -68,7 +63,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Map } from '../store/main';
-import { UPDATE_API_KEY, UPDATE_SERVER_PORT } from '../store/main_types';
+import { UPDATE_API_KEY } from '../store/main_types';
 import { mapState } from 'vuex';
 
 import TextInput from '../components/TextInput.vue';
@@ -96,15 +91,7 @@ export default defineComponent({
         set (value) {
             this.$store.commit(UPDATE_API_KEY, value);
         },
-    },
-    serverPort: {
-        get (): string {
-            return this.$store.state.serverPort;
-        },
-        set (value) {
-            this.$store.commit(UPDATE_SERVER_PORT, value);
-        },
-    },
+    }
   },
   methods: {
         addMapModalToggle() {

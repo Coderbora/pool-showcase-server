@@ -24,7 +24,7 @@ export interface Map {
     modpool: "NM" | "HD" | "HR" | "DT" | "FM" | "TB",
     modpool_id: number,
 
-    playedBy: Player
+    playedBy: Player | undefined
 }
 
 export interface Player {
@@ -46,7 +46,6 @@ export interface Player {
 export interface MainState {
     initialized: boolean,
     apiKey: string,
-    serverPort: string,
 
     showcasePool: Map[],
 }
@@ -58,7 +57,6 @@ export const store = createStore<MainState>({
     state: {
         initialized: false,
         apiKey: "",
-        serverPort: "8090",
         showcasePool: []
     },
     mutations: {
@@ -68,16 +66,16 @@ export const store = createStore<MainState>({
         [types.UPDATE_API_KEY] (state, apiKey: string) {
             state.apiKey = apiKey;
         },
-        [types.UPDATE_SERVER_PORT] (state, port: string) {
-            state.serverPort = port;
+        [types.UPDATE_POOL] (state, pool: Map[]) {
+            state.showcasePool = pool;
         }
     },
     actions: {
         [types.UPDATE_API_KEY]({ commit }, apiKey: string) {
             commit(types.UPDATE_API_KEY, apiKey);
         },
-        [types.UPDATE_SERVER_PORT]({ commit }, port: string) {
-            commit(types.UPDATE_SERVER_PORT, port);
-        }
+        [types.UPDATE_POOL]({ commit }, pool: Map[]) {
+            commit(types.UPDATE_POOL, pool);
+        },
     }
 });
