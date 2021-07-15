@@ -14,6 +14,22 @@ export default defineComponent({
 </script>
 
 <style>
+@import url('./assets/css/font/OpenSans.css');
+
+body {
+    background: #333;
+    color: white;
+    text-align: center;
+}
+
+:root {
+    --bs-font-sans-serif: "Open Sans";
+}
+
+.card {
+    background: #444;
+}
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity .15s ease-in-out;
 }

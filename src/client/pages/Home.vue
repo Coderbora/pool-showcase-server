@@ -11,12 +11,12 @@
         <p class="card-text">
           Welcome to the Mappool Showcase Server! This project's aim is to create an overlay for OBS, which will help streaming mappool showcase with mappool details and replay data.
         </p>
-        <router-link 
-          to="/main"
+        <a 
           class="btn btn-primary"
+          @click.prevent="init"
         >
           Get Started
-        </router-link>
+        </a>
       </div>
     </div>
   </div>
@@ -24,9 +24,25 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { mapState } from 'vuex';
+import { SET_INITIALIZED } from '../store/main_types'
 
 export default defineComponent({
   name: "Home",
+  computed: {
+    ...mapState({
+        initialized: (state: any) => state.initialized as boolean,
+    }),
+  },
+  created() {
+    if(this.initialized) this.$router.push("/main");
+  },
+  methods: {
+    init() {
+      this.$store.commit(SET_INITIALIZED);
+      this.$router.push("/main");
+    }
+  }
 })
 </script>
 

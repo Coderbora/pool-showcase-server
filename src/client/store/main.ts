@@ -3,6 +3,8 @@ import createPersistedState from "vuex-persistedstate";
 import * as types from './main_types';
 
 export interface Map {
+    id: number,
+
     title: string,
     artist: string,
     version: string,
@@ -44,6 +46,7 @@ export interface Player {
 export interface MainState {
     initialized: boolean,
     apiKey: string,
+    serverPort: string,
 
     showcasePool: Map[],
 }
@@ -55,6 +58,7 @@ export const store = createStore<MainState>({
     state: {
         initialized: false,
         apiKey: "",
+        serverPort: "8090",
         showcasePool: []
     },
     mutations: {
@@ -63,11 +67,17 @@ export const store = createStore<MainState>({
         },
         [types.UPDATE_API_KEY] (state, apiKey: string) {
             state.apiKey = apiKey;
+        },
+        [types.UPDATE_SERVER_PORT] (state, port: string) {
+            state.serverPort = port;
         }
     },
     actions: {
         [types.UPDATE_API_KEY]({ commit }, apiKey: string) {
             commit(types.UPDATE_API_KEY, apiKey);
+        },
+        [types.UPDATE_SERVER_PORT]({ commit }, port: string) {
+            commit(types.UPDATE_SERVER_PORT, port);
         }
     }
 });
