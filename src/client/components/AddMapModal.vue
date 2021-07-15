@@ -20,12 +20,22 @@
       v-for="key in Object.keys(beatmap)"
       :key="'addMap_'+key"
     >
-      <TextInput
-        v-if="['string', 'number'].includes(typeof beatmap[key])"
-        :input-name="key"
-        :value="beatmap[key]"
-        @changeValue="beatmap[key] = $event"
-      />
+      <template v-if="['string', 'number'].includes(typeof beatmap[key])">
+        <TextInput
+          :input-name="key"
+          :value="beatmap[key]"
+          @changeValue="beatmap[key] = $event"
+        />
+      </template>
+      <template v-else-if="typeof beatmap[key] === 'object'">
+        <TextInput
+          v-for="subkey in Object.keys(beatmap[key])"
+          :key="'addMap_'+key+subkey"
+          :input-name="subkey"
+          :value="beatmap[key][subkey]"
+          @changeValue="beatmap[key][subkey] = $event"
+        />
+      </template>
     </template>
 
     <button
