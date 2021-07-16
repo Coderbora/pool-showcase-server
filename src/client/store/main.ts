@@ -2,7 +2,7 @@ import { createStore } from 'vuex';
 import createPersistedState from "vuex-persistedstate";
 import * as types from './main_types';
 
-export interface Map {
+export interface Map extends Record<string, unknown> {
     id: number,
 
     title: string,

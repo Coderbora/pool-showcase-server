@@ -3,6 +3,10 @@
     :active="addMapModal"
     @closeModal="addMapModalToggle"
   />
+  <ImportMapsModal
+    :active="importMapsModal"
+    @closeModal="importMapsModalToggle"
+  />
   <div class="container">
     <div class="card my-3">
       <div class="card-header">
@@ -24,6 +28,7 @@
         </button><button
           type="button"
           class="btn btn-primary mx-2"
+          @click="importMapsModalToggle"
         >
           Import Maps
         </button>
@@ -68,16 +73,19 @@ import { mapState } from 'vuex';
 
 import TextInput from '../components/TextInput.vue';
 import AddMapModal from '../components/AddMapModal.vue';
+import ImportMapsModal from '../components/ImportMapsModal.vue';
 
 export default defineComponent({
   name: "Main",
   components: {
     TextInput,
-    AddMapModal
+    AddMapModal,
+    ImportMapsModal
   },
   data() {
     return {
-      addMapModal: false
+      addMapModal: false,
+      importMapsModal: false,
     }
   },
   computed: {
@@ -94,11 +102,16 @@ export default defineComponent({
     }
   },
   methods: {
-        addMapModalToggle() {
-          const body = document.querySelector("body")
-          this.addMapModal = !this.addMapModal
-          this.addMapModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
-        },
+    addMapModalToggle() {
+      const body = document.querySelector("body")
+      this.addMapModal = !this.addMapModal
+      this.addMapModal || this.importMapsModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
+    },
+    importMapsModalToggle() {
+      const body = document.querySelector("body")
+      this.importMapsModal = !this.importMapsModal
+      this.addMapModal || this.importMapsModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
+    },
   }
 })
 </script>
