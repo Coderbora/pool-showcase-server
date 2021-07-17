@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
@@ -9,12 +9,14 @@ import App from './App.vue';
 
 import Home from './pages/Home.vue';
 import Main from './pages/Main.vue';
+import Show from './pages/Show.vue';
 
 const router = createRouter({
-    history: createWebHashHistory(),
+    history: createWebHistory(),
     routes: [
         { path: '/', component: Home },
-        { path: '/main', component: Main }
+        { path: '/main', component: Main },
+        { path: '/show/:modpool/:modpoolid', component: Show}
     ]
 });
 

@@ -7,9 +7,13 @@ import * as path from "path";
 import * as express from "express";
 import * as history from 'connect-history-api-fallback';
 
+import { Map } from '../shared/types';
+
 const PORT = 9000;
 const webApp = express();
 const upload = multer();
+
+let showcasePool = [] as Map[];
 
 function createWindow() {
 
@@ -30,13 +34,23 @@ function createWindow() {
 }
 
 app.on("ready", () => {
+  webApp.use(express.json());
+
+  webApp.get("/showcasePool", (req, res) => {
+    res.send(showcasePool);
+  });
+
+  webApp.post("/showcasePool", (req, res) => {
+    showcasePool = req.body;
+  });
+
   webApp.post("/readReplay", upload.single('replay'), (req, res) => {
     const replay = OsuReplay.parse(req.file.buffer);
     
     delete replay.windowsTicks;
     delete replay.onlineScoreId;
     res.send(replay);
-  })
+  });
 
   const staticMiddleware = express.static("dist/client");
   webApp.use(staticMiddleware);

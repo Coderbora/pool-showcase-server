@@ -37,6 +37,13 @@
         >
           Import Maps
         </button>
+        <button
+          type="button"
+          class="btn btn-primary mx-2"
+          @click="syncMaps"
+        >
+          Sync
+        </button>
       </div>
     </div>
 
@@ -85,13 +92,15 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Map } from '../store/main';
+import { Map } from '../../shared/types';
 import { UPDATE_API_KEY, UPDATE_POOL } from '../store/main_types';
 
 import TextInput from '../components/TextInput.vue';
 import AddMapModal from '../components/AddMapModal.vue';
 import ImportMapsModal from '../components/ImportMapsModal.vue';
 import ReplaySubmissionModal from '../components/ReplaySubmissionModal.vue';
+
+import axios from 'axios';
 
 export default defineComponent({
   name: "Main",
@@ -144,6 +153,11 @@ export default defineComponent({
       const body = document.querySelector("body")
       this.replaySubmissionModal = !this.replaySubmissionModal
       this.addMapModal || this.importMapsModal || this.replaySubmissionModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
+    },
+    async syncMaps() {
+      await axios.post("/showcasePool", this.showcasePool, { headers: {
+        'Content-Type': 'application/json'
+      }});
     },
     removeMap(map: Map) {
       this.showcasePool.splice(this.showcasePool.indexOf(map), 1);

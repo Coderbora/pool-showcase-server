@@ -45,7 +45,7 @@ import axios from 'axios';
 
 import Modal from './Modal.vue';
 import { mapState } from 'vuex';
-import { Grade, Map } from '../store/main';
+import { Grade, Map } from '../../shared/types';
 import { UPDATE_POOL } from '../store/main_types';
 import { OsuReplay } from '@brunohpaiva/osu-parser';
 
@@ -139,7 +139,8 @@ export default defineComponent({
 
           maxcombo: replayData.greatestCombo,
           accuracy,
-          score: replayData.totalScore
+          score: replayData.totalScore,
+          modsUsed: replayData.modsUsed
         };
 
         this.showcasePool = copyPool;

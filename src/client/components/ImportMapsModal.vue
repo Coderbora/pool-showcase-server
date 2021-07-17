@@ -85,7 +85,7 @@ import { defineComponent } from 'vue';
 
 import Modal from './Modal.vue';
 import { mapState } from 'vuex';
-import { Map } from '../store/main';
+import { Map } from '../../shared/types';
 import { UPDATE_POOL } from '../store/main_types';
 import axios from 'axios';
 
