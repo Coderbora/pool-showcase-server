@@ -7,6 +7,11 @@
     :active="importMapsModal"
     @closeModal="importMapsModalToggle"
   />
+  <ReplaySubmissionModal
+    :active="replaySubmissionModal"
+    :map="replaySubmissionSelectedMap"
+    @closeModal="replaySubmissionModalToggle"
+  />
   <div class="container">
     <div class="card my-3">
       <div class="card-header">
@@ -59,7 +64,20 @@
         <td>{{ map['modpool'] }}{{ map['modpool_id'] }}</td>
         <td>{{ map['artist'] }} - {{ map['title'] }} [{{ map['version'] }}]</td>
         <td>{{ map['playedBy'] ? map['playedBy']['username'] : "-" }}</td>
-        <td>Selam</td>
+        <td>
+          <img
+            class="action"
+            src="../assets/edit.svg"
+            alt="Edit"
+            @click="replaySubmissionModalToggle(map)"
+          >
+          <img
+            class="action"
+            src="../assets/times.svg"
+            alt="Delete"
+            @click="removeMap(map)"
+          >
+        </td>
       </tr>
     </table>
   </div>
@@ -68,30 +86,31 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Map } from '../store/main';
-import { UPDATE_API_KEY } from '../store/main_types';
-import { mapState } from 'vuex';
+import { UPDATE_API_KEY, UPDATE_POOL } from '../store/main_types';
 
 import TextInput from '../components/TextInput.vue';
 import AddMapModal from '../components/AddMapModal.vue';
 import ImportMapsModal from '../components/ImportMapsModal.vue';
+import ReplaySubmissionModal from '../components/ReplaySubmissionModal.vue';
 
 export default defineComponent({
   name: "Main",
   components: {
     TextInput,
     AddMapModal,
-    ImportMapsModal
+    ImportMapsModal,
+    ReplaySubmissionModal
   },
   data() {
     return {
       addMapModal: false,
       importMapsModal: false,
+
+      replaySubmissionModal: false,
+      replaySubmissionSelectedMap: {} as Map,
     }
   },
   computed: {
-    ...mapState({
-      showcasePool: (state: any) => state.showcasePool as Map[],
-    }),
     apiKey: {
         get (): string {
             return this.$store.state.apiKey;
@@ -99,23 +118,43 @@ export default defineComponent({
         set (value) {
             this.$store.commit(UPDATE_API_KEY, value);
         },
+    },
+    showcasePool: {
+      get (): Map[] {
+          return this.$store.state.showcasePool;
+      },
+      set (value: Map[]) {
+          this.$store.commit(UPDATE_POOL, value);
+      },
     }
   },
   methods: {
     addMapModalToggle() {
       const body = document.querySelector("body")
       this.addMapModal = !this.addMapModal
-      this.addMapModal || this.importMapsModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
+      this.addMapModal || this.importMapsModal || this.replaySubmissionModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
     },
     importMapsModalToggle() {
       const body = document.querySelector("body")
       this.importMapsModal = !this.importMapsModal
-      this.addMapModal || this.importMapsModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
+      this.addMapModal || this.importMapsModal || this.replaySubmissionModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
+    },
+    replaySubmissionModalToggle(map: Map) {
+      this.replaySubmissionSelectedMap = map;
+      const body = document.querySelector("body")
+      this.replaySubmissionModal = !this.replaySubmissionModal
+      this.addMapModal || this.importMapsModal || this.replaySubmissionModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
+    },
+    removeMap(map: Map) {
+      this.showcasePool.splice(this.showcasePool.indexOf(map), 1);
     },
   }
 })
 </script>
 
-<style scoped>
-
+<style>
+.action {
+  cursor: pointer;
+  width: 24px;
+}
 </style>

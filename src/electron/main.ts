@@ -1,10 +1,15 @@
 import { app, BrowserWindow } from "electron";
+
+import * as multer from "multer";
+import { OsuReplay } from "@brunohpaiva/osu-parser";
+
 import * as path from "path";
 import * as express from "express";
 import * as history from 'connect-history-api-fallback';
 
 const PORT = 9000;
 const webApp = express();
+const upload = multer();
 
 function createWindow() {
 
@@ -25,6 +30,14 @@ function createWindow() {
 }
 
 app.on("ready", () => {
+  webApp.post("/readReplay", upload.single('replay'), (req, res) => {
+    const replay = OsuReplay.parse(req.file.buffer);
+    
+    delete replay.windowsTicks;
+    delete replay.onlineScoreId;
+    res.send(replay);
+  })
+
   const staticMiddleware = express.static("dist/client");
   webApp.use(staticMiddleware);
   webApp.use(history());

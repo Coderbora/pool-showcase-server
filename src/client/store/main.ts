@@ -2,6 +2,7 @@ import { createStore } from 'vuex';
 import createPersistedState from "vuex-persistedstate";
 import * as types from './main_types';
 
+export type Grade = "XH" | "X" | "SH" | "S" | "A" | "B" | "C" | "D";
 export interface Map extends Record<string, unknown> {
     id: number,
 
@@ -29,7 +30,7 @@ export interface Map extends Record<string, unknown> {
 
 export interface Player {
     username: string,
-    rank: "XH" | "X" | "SH" | "S" | "A" | "B" | "C" | "D" | "F",
+    rank: Grade,
 
     count: {
         "300": number,
