@@ -85,7 +85,7 @@ import { defineComponent } from 'vue';
 
 import Modal from './Modal.vue';
 import { mapState } from 'vuex';
-import { Map } from '../../shared/types';
+import { Map, Modpool } from '../../shared/types';
 import { UPDATE_POOL } from '../store/main_types';
 import axios from 'axios';
 
@@ -132,8 +132,7 @@ export default defineComponent({
       isParsed: false,
       parsedData: [] as string[][],
 
-      columnTypes: ["", ...Object.keys(defaultBeatmapScheme()), "Full Song Name", "SR", "CS|AR|OD|HP", "Length (m:s)"],
-      columns: [] as string[],
+      columnTypes: ["", ...Object.keys(defaultBeatmapScheme()), "Full Song Name", "SR", "CS|AR|OD|HP", "Length (m:s)", "Modpool with ID"],      columns: [] as string[],
     }
   },
   computed: {
@@ -231,6 +230,14 @@ export default defineComponent({
               case "Length (m:s)": {
                 const splittedLength = map[detailIndex].split(":");
                 mapScheme.length = Number(splittedLength[0])*60 + Number(splittedLength[1]);
+                break;
+              }
+              case "Modpool with ID": {
+                const modpool = map[detailIndex].substring(0,2);
+                let modpool_id = map[detailIndex].substring(2);
+                if (modpool_id == "") modpool_id = "1"; 
+                mapScheme.modpool = modpool as Modpool;
+                mapScheme.modpool_id = Number(modpool_id);
                 break;
               }
             }

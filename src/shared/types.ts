@@ -1,6 +1,7 @@
 import { OsuMod } from "@brunohpaiva/osu-parser";
 
 export type Grade = "XH" | "X" | "SH" | "S" | "A" | "B" | "C" | "D";
+export type Modpool = "NM" | "HD" | "HR" | "DT" | "FM" | "TB";
 export interface Map extends Record<string, unknown> {
     id: number,
 
@@ -20,7 +21,7 @@ export interface Map extends Record<string, unknown> {
     length: number,
     bpm: number,
 
-    modpool: "NM" | "HD" | "HR" | "DT" | "FM" | "TB",
+    modpool: Modpool,
     modpool_id: number,
 
     playedBy: Player | undefined
