@@ -44,6 +44,13 @@
         >
           Sync
         </button>
+        <button
+          type="button"
+          class="btn btn-danger mx-2"
+          @click="showcasePool = []"
+        >
+          Clear Pool
+        </button>
       </div>
     </div>
 
