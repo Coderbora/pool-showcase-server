@@ -114,6 +114,16 @@ function defaultBeatmapScheme() {
     } as Map, {});
 }
 
+function initialState() {
+  return {
+    sheetData: "",
+    isParsed: false,
+    parsedData: [] as string[][],
+
+    columnTypes: ["", ...Object.keys(defaultBeatmapScheme()), "Full Song Name", "SR", "CS|AR|OD|HP", "Length (m:s)", "Modpool with ID"],      columns: [] as string[],
+  }
+}
+
 export default defineComponent({
   name: "AddMapModal",
   components: {
@@ -127,13 +137,7 @@ export default defineComponent({
   },
   emits: ['closeModal'],
   data() {
-    return {
-      sheetData: "",
-      isParsed: false,
-      parsedData: [] as string[][],
-
-      columnTypes: ["", ...Object.keys(defaultBeatmapScheme()), "Full Song Name", "SR", "CS|AR|OD|HP", "Length (m:s)", "Modpool with ID"],      columns: [] as string[],
-    }
+    return initialState();
   },
   computed: {
     ...mapState({
@@ -146,6 +150,11 @@ export default defineComponent({
       set (value: Map[]) {
           this.$store.commit(UPDATE_POOL, value);
       },
+    }
+  },
+  watch: {
+    active(value) {
+      if(value === true) Object.assign(this.$data, initialState());
     }
   },
   methods: {

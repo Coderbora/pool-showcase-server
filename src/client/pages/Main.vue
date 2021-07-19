@@ -12,6 +12,11 @@
     :map="replaySubmissionSelectedMap"
     @closeModal="replaySubmissionModalToggle"
   />
+  <ChangePositionalSettings
+    :active="changePositionalSettingsModal"
+    :selected-setting="selectedSetting"
+    @closeModal="changePositionalSettingsModalToggle"
+  />
   <div class="container">
     <div class="card my-3">
       <div class="card-header">
@@ -24,6 +29,47 @@
           input-type="password"
           @changeValue="apiKey = $event"
         />
+        <div class="row">
+          <div
+            v-for="key in Object.keys(showSettings).filter(s => ['number','string'].includes(typeof showSettings[s]))"
+            :key="'showSettings'+key"
+            class="col"
+          >
+            <TextInput
+              :input-name="key"
+              :value="showSettings[key]"
+              @changeValue="showSettings[key] = $event"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <select
+            v-model="selectedSetting"
+            name="showSettings"
+            class="form-control"
+          >
+            <optgroup
+              v-for="key in Object.keys(showSettings).filter(s => typeof showSettings[s] === 'object')"
+              :key="'selectSettings'+key"
+              :label="key"
+            >
+              <option
+                v-for="subkey in Object.keys(showSettings[key])"
+                :key="'selectSettings'+key+subkey"
+                :value="key + '/' + subkey"
+              >
+                {{ subkey }}
+              </option>
+            </optgroup>
+          </select>
+          <button
+            type="button"
+            class="btn btn-primary mx-2"
+            @click="changePositionalSettingsModalToggle"
+          >
+            Change Settings
+          </button>
+        </div>
         <button
           type="button"
           class="btn btn-primary mx-2"
@@ -99,13 +145,14 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Map } from '../../shared/types';
-import { UPDATE_API_KEY, UPDATE_POOL } from '../store/main_types';
+import { Map, ShowSettings } from '../../shared/types';
+import { UPDATE_API_KEY, UPDATE_POOL, UPDATE_SHOW_SETTINGS } from '../store/main_types';
 
 import TextInput from '../components/TextInput.vue';
 import AddMapModal from '../components/AddMapModal.vue';
 import ImportMapsModal from '../components/ImportMapsModal.vue';
 import ReplaySubmissionModal from '../components/ReplaySubmissionModal.vue';
+import ChangePositionalSettings from '../components/ChangePositionalSettings.vue';
 
 import axios from 'axios';
 
@@ -115,7 +162,8 @@ export default defineComponent({
     TextInput,
     AddMapModal,
     ImportMapsModal,
-    ReplaySubmissionModal
+    ReplaySubmissionModal,
+    ChangePositionalSettings
   },
   data() {
     return {
@@ -124,6 +172,9 @@ export default defineComponent({
 
       replaySubmissionModal: false,
       replaySubmissionSelectedMap: {} as Map,
+
+      changePositionalSettingsModal: false,
+      selectedSetting: "",
     }
   },
   computed: {
@@ -142,24 +193,38 @@ export default defineComponent({
       set (value: Map[]) {
           this.$store.commit(UPDATE_POOL, value);
       },
+    },
+    showSettings: {
+      get (): ShowSettings {
+          return this.$store.state.showSettings;
+      },
+      set (value: ShowSettings) {
+          this.$store.commit(UPDATE_SHOW_SETTINGS, value);
+      },
     }
   },
   methods: {
     addMapModalToggle() {
       const body = document.querySelector("body")
       this.addMapModal = !this.addMapModal
-      this.addMapModal || this.importMapsModal || this.replaySubmissionModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
+      this.addMapModal || this.importMapsModal || this.replaySubmissionModal || this.changePositionalSettingsModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
     },
     importMapsModalToggle() {
       const body = document.querySelector("body")
       this.importMapsModal = !this.importMapsModal
-      this.addMapModal || this.importMapsModal || this.replaySubmissionModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
+      this.addMapModal || this.importMapsModal || this.replaySubmissionModal || this.changePositionalSettingsModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
     },
     replaySubmissionModalToggle(map: Map) {
       this.replaySubmissionSelectedMap = map;
       const body = document.querySelector("body")
       this.replaySubmissionModal = !this.replaySubmissionModal
-      this.addMapModal || this.importMapsModal || this.replaySubmissionModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
+      this.addMapModal || this.importMapsModal || this.replaySubmissionModal || this.changePositionalSettingsModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
+    },
+    changePositionalSettingsModalToggle() {
+      if (this.selectedSetting === "") return;
+      const body = document.querySelector("body")
+      this.changePositionalSettingsModal = !this.changePositionalSettingsModal
+      this.addMapModal || this.importMapsModal || this.replaySubmissionModal || this.changePositionalSettingsModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
     },
     async syncMaps() {
       await axios.post("/showcasePool", this.showcasePool, { headers: {

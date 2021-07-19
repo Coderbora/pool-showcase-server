@@ -181,7 +181,10 @@ export const store = createStore<MainState>({
         },
         [types.UPDATE_POOL] (state, pool: Map[]) {
             state.showcasePool = pool;
-        }
+        },
+        [types.UPDATE_SHOW_SETTINGS] (state, showSettings: ShowSettings) {
+            state.showSettings = showSettings;
+        },
     },
     actions: {
         [types.UPDATE_API_KEY]({ commit }, apiKey: string) {
@@ -189,6 +192,9 @@ export const store = createStore<MainState>({
         },
         [types.UPDATE_POOL]({ commit }, pool: Map[]) {
             commit(types.UPDATE_POOL, pool);
+        },
+        [types.UPDATE_SHOW_SETTINGS]({ commit }, showSettings: ShowSettings) {
+            commit(types.UPDATE_SHOW_SETTINGS, showSettings);
         },
     }
 });

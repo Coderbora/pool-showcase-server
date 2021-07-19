@@ -123,6 +123,11 @@ export default defineComponent({
       },
     }
   },
+  watch: {
+    active(value) {
+      if(value === true) Object.assign(this.$data, initialState());
+    }
+  },
   methods: {
     parse_beatmap_url: function (beatmap_url: string) {
       let beatmap_id = -1;

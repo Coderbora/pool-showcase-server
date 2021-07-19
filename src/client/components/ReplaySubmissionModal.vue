@@ -87,6 +87,11 @@ export default defineComponent({
       },
     }
   },
+  watch: {
+    active(value) {
+      if(value === true) Object.assign(this.$data, initialState());
+    }
+  },
   methods: {
     filesSelected(e: Event) {
       this.files = (e.target as HTMLInputElement).files;
