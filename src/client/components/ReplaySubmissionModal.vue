@@ -8,7 +8,16 @@
       Grade: {{ map.playedBy.rank }}<br>
       Score: {{ map.playedBy.score }}<br>
       Accuracy: {{ (map.playedBy.accuracy*100).toFixed(2) }}<br>
-      Miss: {{ map.playedBy.count["0"] }}
+      Miss: {{ map.playedBy.count["0"] }}<br>
+      <div class="row justify-content-center my-2">
+        <div class="col-6 form-group">
+          <TextInput
+            input-name="Profile Image URL"
+            :value="map.playedBy.playerAvatar"
+            @changeValue="changeAvatar($event)"
+          />
+        </div>
+      </div>
       <hr>
     </template>
     <div class="row justify-content-center my-2">
@@ -29,6 +38,16 @@
         </button>
       </div>
     </div>
+    <hr>
+    <div class="row justify-content-center">
+      <div class="col-6 form-group">
+        <TextInput
+          input-name="Beatmap Image URL"
+          :value="map.img_url"
+          @changeValue="changeBeatmapImage($event)"
+        />
+      </div>
+    </div>
     <button
       type="button"
       class="btn btn-secondary mx-2"
@@ -44,6 +63,7 @@ import { defineComponent, PropType } from 'vue';
 import axios from 'axios';
 
 import Modal from './Modal.vue';
+import TextInput from './TextInput.vue';
 import { mapState } from 'vuex';
 import { Grade, Map } from '../../shared/types';
 import { UPDATE_POOL } from '../store/main_types';
@@ -58,7 +78,8 @@ function initialState() {
 export default defineComponent({
   name: "ReplaySubmissionModal",
   components: {
-    Modal
+    Modal,
+    TextInput
   },
   props: {
     active: {
@@ -156,6 +177,17 @@ export default defineComponent({
 
         this.showcasePool = copyPool;
       }
+    },
+    changeAvatar(avatar: string) {
+      const copyPool = [...this.showcasePool];
+      const player = copyPool[copyPool.indexOf(this.map)].playedBy;
+      if(player) player.playerAvatar = avatar;
+      this.showcasePool = copyPool;
+    },
+    changeBeatmapImage(image: string) {
+      const copyPool = [...this.showcasePool];
+      copyPool[copyPool.indexOf(this.map)].img_url = image;
+      this.showcasePool = copyPool;
     }
   }
 })

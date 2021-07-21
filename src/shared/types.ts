@@ -55,6 +55,7 @@ export interface ComponentDetails {
     left: number,
     mode: ShowType,
     size: number,
+    maxWidth: number,
 }
 
 export interface ImageComponentDetails {
@@ -104,6 +105,7 @@ export interface ShowSettings {
     normalColor: string,
     accentColor: string,
     textFont: string,
+    defaultImage: string,
 
     map: ShowMapDetails,
 

@@ -26,6 +26,7 @@ export const store = createStore<MainState>({
             normalColor: "#70D4FF",
             accentColor: "#FF5CFF",
             textFont: "https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap",
+            defaultImage: "",
 
             map: {
                 img_url: {
@@ -44,6 +45,7 @@ export const store = createStore<MainState>({
                     left: 120,
                     mode: "accent",
                     size: 18,
+                    maxWidth: 240,
                 },
                 songName: {
                     type: "text",
@@ -52,6 +54,7 @@ export const store = createStore<MainState>({
                     left: 120,
                     mode: "normal",
                     size: 18,
+                    maxWidth: 240,
                 },
                 version: {
                     type: "text",
@@ -60,6 +63,7 @@ export const store = createStore<MainState>({
                     left: 120,
                     mode: "normal",
                     size: 18,
+                    maxWidth: 240,
                 },
                 
                 cs: {
@@ -69,6 +73,7 @@ export const store = createStore<MainState>({
                     left: 77,
                     mode: "normal",
                     size: 18,
+                    maxWidth: 240,
                 },
                 ar: {
                     type: "text",
@@ -77,6 +82,7 @@ export const store = createStore<MainState>({
                     left: 195,
                     mode: "normal",
                     size: 18,
+                    maxWidth: 240,
                 },
                 od: {
                     type: "text",
@@ -85,6 +91,7 @@ export const store = createStore<MainState>({
                     left: 77,
                     mode: "normal",
                     size: 18,
+                    maxWidth: 240,
                 },
                 hp: {
                     type: "text",
@@ -93,6 +100,7 @@ export const store = createStore<MainState>({
                     left: 195,
                     mode: "normal",
                     size: 18,
+                    maxWidth: 240,
                 },
                 mapLength: {
                     type: "text",
@@ -101,6 +109,7 @@ export const store = createStore<MainState>({
                     left: 77,
                     mode: "normal",
                     size: 18,
+                    maxWidth: 240,
                 },
                 bpm: {
                     type: "text",
@@ -109,6 +118,7 @@ export const store = createStore<MainState>({
                     left: 195,
                     mode: "normal",
                     size: 18,
+                    maxWidth: 240,
                 },
                 sr: {
                     type: "text",
@@ -117,6 +127,7 @@ export const store = createStore<MainState>({
                     left: 132,
                     mode: "normal",
                     size: 18,
+                    maxWidth: 240,
                 },
             
                 mapID: {
@@ -125,7 +136,8 @@ export const store = createStore<MainState>({
                     top: 950,
                     left: 120,
                     mode: "accent",
-                    size: 18,
+                    size: 40,
+                    maxWidth: 240,
                 },
             },
 
@@ -146,6 +158,7 @@ export const store = createStore<MainState>({
                     left: 1800,
                     mode: "accent",
                     size: 18,
+                    maxWidth: 240,
                 },
                 rank: {
                     type: "text",
@@ -154,6 +167,7 @@ export const store = createStore<MainState>({
                     left: 1800,
                     mode: "normal",
                     size: 18,
+                    maxWidth: 240,
                 },
                 
                 count300: {
@@ -163,6 +177,7 @@ export const store = createStore<MainState>({
                     left: 1758,
                     mode: "normal",
                     size: 16,
+                    maxWidth: 240,
                 },
                 count100: {
                     type: "text",
@@ -171,6 +186,7 @@ export const store = createStore<MainState>({
                     left: 1880,
                     mode: "normal",
                     size: 16,
+                    maxWidth: 240,
                 },
                 count50: {
                     type: "text",
@@ -179,6 +195,7 @@ export const store = createStore<MainState>({
                     left: 1758,
                     mode: "normal",
                     size: 16,
+                    maxWidth: 240,
                 },
                 countMiss: {
                     type: "text",
@@ -187,6 +204,7 @@ export const store = createStore<MainState>({
                     left: 1880,
                     mode: "normal",
                     size: 16,
+                    maxWidth: 240,
                 },
             
                 maxCombo: {
@@ -196,6 +214,7 @@ export const store = createStore<MainState>({
                     left: 1800,
                     mode: "normal",
                     size: 18,
+                    maxWidth: 240,
                 },
                 displayAcc: {
                     type: "text",
@@ -204,6 +223,7 @@ export const store = createStore<MainState>({
                     left: 1800,
                     mode: "normal",
                     size: 18,
+                    maxWidth: 240,
                 },
                 displayScore: {
                     type: "text",
@@ -212,6 +232,7 @@ export const store = createStore<MainState>({
                     left: 1800,
                     mode: "normal",
                     size: 18,
+                    maxWidth: 240,
                 },
             }
         }

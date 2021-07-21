@@ -22,6 +22,7 @@
           class="component"
           :style="{ 
             fontSize: showSettings[key][component]['size']+'pt',
+            width: showSettings[key][component]['maxWidth']+'px',
             color: showSettings[key][component]['mode'] == 'accent' ? showSettings['accentColor'] : showSettings['normalColor']
           }"
         >
@@ -44,7 +45,7 @@
 <script lang="ts">
 import axios from 'axios';
 import { defineComponent } from 'vue'
-import { Map, Player, ShowSettings } from '../../shared/types';
+import { Map, Player, ShowMapDetails, ShowPlayerDetails, ShowSettings } from '../../shared/types';
 
 export default defineComponent({
     name: "Show",
@@ -80,9 +81,9 @@ export default defineComponent({
     },
     methods: {
       getComponentValue(mainKey: string, subKey: string): string {
-
         if(this.map && this.map.diff) {
           if (mainKey == "player" && this.map.playedBy) {
+            if(this.map.playedBy[subKey as keyof Player] == "" && this.showSettings[mainKey][subKey as keyof ShowPlayerDetails].type == 'image') return this.showSettings.defaultImage;
             if(this.map.playedBy[subKey as keyof Player]) return this.map.playedBy[subKey as keyof Player].toString();
             else {
               switch (subKey) {
@@ -103,6 +104,7 @@ export default defineComponent({
               }
             }
           } else if (mainKey == "map") {
+            if(this.map[subKey as keyof Map] == "" && this.showSettings[mainKey][subKey as keyof ShowMapDetails].type == 'image') return this.showSettings.defaultImage;
             if(this.map[subKey as keyof Map]) return this.map[subKey as keyof Map] as string;
             else {
               switch (subKey) {
@@ -142,6 +144,7 @@ body.transparent {
   background: rgba(0,0,0,0) !important;
   width: 1920px !important;
   height: 1080px !important;
+  overflow: hidden; 
 }
 </style>
 
@@ -158,6 +161,9 @@ body.transparent {
 .component {
   margin-left: -50%;
   float: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .image {
