@@ -1,1 +1,2 @@
 # osu! Mappool Showcase Server
+This project has made for Mezelyus' Summer Tournament 2021. It can basically load beatmap and replay data inside the program and serve it as overlay in OBS. Therefore, it does not contain background designs, etc. but only renders texts and map/player images.
