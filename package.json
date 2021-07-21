@@ -10,7 +10,9 @@
     "ts:build": "tsc --project src/electron/tsconfig.json",
     "ts:watch": "tsc --project src/electron/tsconfig.json -w",
     "lint": "eslint -c .eslintrc --ext .ts --ext .vue src",
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "repository": {
     "type": "git",
@@ -34,6 +36,7 @@
     "@vitejs/plugin-vue": "^1.2.5",
     "@vue/compiler-sfc": "^3.1.4",
     "electron": "^13.1.6",
+    "electron-builder": "^22.11.7",
     "eslint": "^7.30.0",
     "eslint-plugin-vue": "^7.13.0",
     "typescript": "^4.3.5",
@@ -52,5 +55,25 @@
     "vue-router": "^4.0.10",
     "vuex": "^4.0.2",
     "vuex-persistedstate": "^4.0.0-beta.3"
+  },
+  "build": {
+    "appId": "com.coderbora.poolshowcaseserver",
+    "productName": "Pool Showcase Server",
+    "files": ["dist/**/*", "build/**/*", "node_modules/**/*"],
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "asar":true,
+    "win": {
+      "icon": "build/icons/icon.png",
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "runAfterFinish": true,
+      "license":"LICENSE.md"
+    }
   }
 }

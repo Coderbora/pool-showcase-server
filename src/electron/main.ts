@@ -20,17 +20,12 @@ function createWindow() {
 
   const mainWindow = new BrowserWindow({
     height: 600,
-    webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
-    },
-    width: 800,
+    width: 1000,
     darkTheme: true,
   });
   webApp.listen(PORT, () => {
     mainWindow.setMenuBarVisibility(false);
     mainWindow.loadURL(`http://localhost:${PORT}/`);
-  
-    mainWindow.webContents.openDevTools();
   })
 }
 
@@ -63,7 +58,7 @@ app.on("ready", () => {
     res.send(replay);
   });
 
-  const staticMiddleware = express.static("dist/client");
+  const staticMiddleware = express.static(path.resolve(__dirname, "../client"));
   webApp.use(staticMiddleware);
   webApp.use(history());
   webApp.use(staticMiddleware);
