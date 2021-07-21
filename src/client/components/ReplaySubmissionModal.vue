@@ -126,12 +126,18 @@ export default defineComponent({
         }
 
         if((replayData.modsUsed.includes("Hidden") || replayData.modsUsed.includes("Flashlight")) && ["X", "S"].includes(grade)) grade = (grade + "H") as Grade;
-
         //
+
+        const {data: userProfile } = await axios.get("https://osu.ppy.sh/api/get_user", { params: {
+          k: this.apiKey,
+          u: replayData.playerName
+        }});
 
         const copyPool = [...this.showcasePool];
 
         copyPool[copyPool.indexOf(this.map)].playedBy = {
+          playerAvatar: userProfile.length > 0 ? `https://a.ppy.sh/${userProfile[0]["user_id"]}?123` : "",
+
           username: replayData.playerName,
           rank: grade,
 

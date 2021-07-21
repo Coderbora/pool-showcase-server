@@ -1,25 +1,75 @@
 <template>
-  <div class="main">
-    {{ $route.params.modpool }}{{ $route.params.modpoolid }}
-
-    {{ map }}
+  <div
+    class="main"
+    :style="{ fontFamily: fontName }"
+  >
+    <template
+      v-for="key in Object.keys(showSettings).filter(s => typeof showSettings[s] === 'object')"
+      :key="'template_'+key"
+    >
+      <div
+        v-for="component in Object.keys(showSettings[key]).filter(s => showSettings[key][s]['enabled'] === true)"
+        :key="'component' + key + component"
+        class="anchor"
+        :style="{
+          top: showSettings[key][component]['top']+'px',
+          left: showSettings[key][component]['left']+'px'
+        }"
+        :name="[key, component].join('/')"
+      >
+        <div
+          v-if="showSettings[key][component]['type'] === 'text'"
+          class="component"
+          :style="{ 
+            fontSize: showSettings[key][component]['size']+'pt',
+            color: showSettings[key][component]['mode'] == 'accent' ? showSettings['accentColor'] : showSettings['normalColor']
+          }"
+        >
+          {{ getComponentValue(key, component) }}
+        </div>
+        <div
+          v-else-if="showSettings[key][component]['type'] === 'image'"
+          class="image"
+          :style="{
+            width: showSettings[key][component]['width']+'px',
+            height: showSettings[key][component]['height']+'px',
+            background: 'url('+ getComponentValue(key, component) + ')'
+          }"
+        />
+      </div>
+    </template>
   </div>
 </template>
 
 <script lang="ts">
 import axios from 'axios';
 import { defineComponent } from 'vue'
-import { Map } from '../../shared/types';
+import { Map, Player, ShowSettings } from '../../shared/types';
 
 export default defineComponent({
     name: "Show",
     data() {
       return {
         map: {} as Map | undefined,
-        pool: [] as Map[]
+        pool: [] as Map[],
+        showSettings: {} as ShowSettings,
+        fontName: "",
       }
     },
     async created() {
+      this.showSettings = (await axios.get("/showSettings")).data;
+      if (this.showSettings.textFont != "") {
+        let style = document.createElement('link');
+        style.type = "text/css";
+        style.rel = "stylesheet";
+        style.href = this.showSettings.textFont;
+        document.head.appendChild(style);
+
+        const font = this.showSettings.textFont.match(/=(.*):/);
+
+        this.fontName = font ? font[1] : "";
+      }
+
       this.pool = (await axios.get("/showcasePool")).data;
       document.body.className = 'transparent';
 
@@ -28,19 +78,93 @@ export default defineComponent({
 
       this.map = this.pool.find(m => m.modpool.toLowerCase() === modpool.toLowerCase() && m.modpool_id == modpool_id )
     },
+    methods: {
+      getComponentValue(mainKey: string, subKey: string): string {
+
+        if(this.map && this.map.diff) {
+          if (mainKey == "player" && this.map.playedBy) {
+            if(this.map.playedBy[subKey as keyof Player]) return this.map.playedBy[subKey as keyof Player].toString();
+            else {
+              switch (subKey) {
+                case "maxCombo":
+                  return `${this.map.playedBy.maxcombo}x`;
+                case "displayAcc":
+                  return `${(this.map.playedBy.accuracy*100).toFixed(2)}%`;
+                case "displayScore":
+                  return this.map.playedBy.score.toLocaleString();
+                case "count300":
+                  return this.map.playedBy.count["300"].toString();
+                case "count100":
+                  return this.map.playedBy.count["100"].toString();
+                case "count50":
+                  return this.map.playedBy.count["50"].toString();
+                case "countMiss":
+                  return this.map.playedBy.count["0"].toString();
+              }
+            }
+          } else if (mainKey == "map") {
+            if(this.map[subKey as keyof Map]) return this.map[subKey as keyof Map] as string;
+            else {
+              switch (subKey) {
+                case "mapLength": {
+                  let minutes = Math.floor(this.map.length / 60);
+                  let seconds = this.map.length - (minutes * 60);
+                  return `${minutes}:${seconds}`;
+                }
+                case "songName":
+                  return `${this.map.title}`;
+                case "cs":
+                  return this.map.diff.cs.toString();
+                case "ar":
+                  return this.map.diff.ar.toString();
+                case "od":
+                  return this.map.diff.od.toString();
+                case "hp":
+                  return this.map.diff.hp.toString();
+                case "sr":
+                  return this.map.diff.sr.toString();
+                case "mapID":
+                  return `${this.map.modpool}${this.map.modpool_id}`;
+              }
+            }
+          }
+        }
+
+
+        return "";
+      }
+    }
 })
 </script>
 
 <style>
 body.transparent {
   background: rgba(0,0,0,0) !important;
+  width: 1920px !important;
+  height: 1080px !important;
 }
 </style>
 
 <style scoped>
 .main {
-    width: 1920px;
-    height: 1080px;
+  position: relative;
+  width: 100%;
+  height: 100%;
 
+  font-size: 18pt;
+  font-weight: bold;
+}
+
+.component {
+  margin-left: -50%;
+  float: left;
+}
+
+.image {
+  background-size: cover !important;
+}
+
+div.anchor {
+  position: absolute;
 }
 </style>

@@ -38,7 +38,7 @@
             <TextInput
               :input-name="key"
               :value="showSettings[key]"
-              @changeValue="showSettings[key] = $event"
+              @changeValue="showSettings[key] = $event; changeSettings();"
             />
           </div>
         </div>
@@ -86,7 +86,7 @@
         <button
           type="button"
           class="btn btn-primary mx-2"
-          @click="syncMaps"
+          @click="sync"
         >
           Sync
         </button>
@@ -226,8 +226,14 @@ export default defineComponent({
       this.changePositionalSettingsModal = !this.changePositionalSettingsModal
       this.addMapModal || this.importMapsModal || this.replaySubmissionModal || this.changePositionalSettingsModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
     },
-    async syncMaps() {
+    changeSettings() {
+      this.showSettings = { ...this.showSettings };
+    },
+    async sync() {
       await axios.post("/showcasePool", this.showcasePool, { headers: {
+        'Content-Type': 'application/json'
+      }});
+      await axios.post("/showSettings", this.showSettings, { headers: {
         'Content-Type': 'application/json'
       }});
     },

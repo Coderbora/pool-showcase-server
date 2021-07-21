@@ -3,6 +3,7 @@ import { OsuMod } from "@brunohpaiva/osu-parser";
 export type Grade = "XH" | "X" | "SH" | "S" | "A" | "B" | "C" | "D";
 export type Modpool = "NM" | "HD" | "HR" | "DT" | "FM" | "TB";
 export type ShowType = "normal" | "accent";
+export type ComponentType = "text" | "image";
 export interface Map extends Record<string, unknown> {
     id: number,
 
@@ -29,6 +30,8 @@ export interface Map extends Record<string, unknown> {
 }
 
 export interface Player {
+    playerAvatar: string,
+
     username: string,
     rank: Grade,
 
@@ -46,16 +49,27 @@ export interface Player {
 }
 
 export interface ComponentDetails {
+    type: "text"
     enabled: boolean,
     top: number,
     left: number,
-    mode: ShowType
+    mode: ShowType,
+    size: number,
+}
+
+export interface ImageComponentDetails {
+    type: "image",
+    enabled: boolean,
+    top: number,
+    left: number,
+    width: number,
+    height: number,
 }
 
 export interface ShowMapDetails {
-    listImage: ComponentDetails,
+    img_url: ImageComponentDetails,
 
-    title: ComponentDetails,
+    artist: ComponentDetails,
     songName: ComponentDetails,
     version: ComponentDetails,
     
@@ -63,7 +77,7 @@ export interface ShowMapDetails {
     ar: ComponentDetails,
     od: ComponentDetails,
     hp: ComponentDetails,
-    length: ComponentDetails,
+    mapLength: ComponentDetails,
     bpm: ComponentDetails,
     sr: ComponentDetails,
 
@@ -71,7 +85,7 @@ export interface ShowMapDetails {
 }
 
 export interface ShowPlayerDetails {
-    playerAvatar: ComponentDetails,
+    playerAvatar: ImageComponentDetails,
 
     username: ComponentDetails,
     rank: ComponentDetails,
@@ -82,8 +96,8 @@ export interface ShowPlayerDetails {
     countMiss: ComponentDetails,
 
     maxCombo: ComponentDetails,
-    accuracy: ComponentDetails,
-    score: ComponentDetails,
+    displayAcc: ComponentDetails,
+    displayScore: ComponentDetails,
 }
 
 export interface ShowSettings {

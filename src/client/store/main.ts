@@ -23,151 +23,195 @@ export const store = createStore<MainState>({
         showcasePool: [],
 
         showSettings: {
-            normalColor: "",
-            accentColor: "",
-            textFont: "",
+            normalColor: "#70D4FF",
+            accentColor: "#FF5CFF",
+            textFont: "https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap",
 
             map: {
-                listImage: {
+                img_url: {
+                    type: "image",
                     enabled: true,
-                    top: 0,
+                    top: 330,
                     left: 0,
-                    mode: "normal"
+                    width: 240,
+                    height: 240,
                 },
 
-                title: {
+                artist: {
+                    type: "text",
                     enabled: true,
-                    top: 0,
-                    left: 0,
-                    mode: "normal"
+                    top: 570,
+                    left: 120,
+                    mode: "accent",
+                    size: 18,
                 },
                 songName: {
+                    type: "text",
                     enabled: true,
-                    top: 0,
-                    left: 0,
-                    mode: "normal"
+                    top: 600,
+                    left: 120,
+                    mode: "normal",
+                    size: 18,
                 },
                 version: {
+                    type: "text",
                     enabled: true,
-                    top: 0,
-                    left: 0,
-                    mode: "normal"
+                    top: 630,
+                    left: 120,
+                    mode: "normal",
+                    size: 18,
                 },
                 
                 cs: {
+                    type: "text",
                     enabled: true,
-                    top: 0,
-                    left: 0,
-                    mode: "normal"
+                    top: 692,
+                    left: 77,
+                    mode: "normal",
+                    size: 18,
                 },
                 ar: {
+                    type: "text",
                     enabled: true,
-                    top: 0,
-                    left: 0,
-                    mode: "normal"
+                    top: 763,
+                    left: 195,
+                    mode: "normal",
+                    size: 18,
                 },
                 od: {
+                    type: "text",
                     enabled: true,
-                    top: 0,
-                    left: 0,
-                    mode: "normal"
+                    top: 763,
+                    left: 77,
+                    mode: "normal",
+                    size: 18,
                 },
                 hp: {
+                    type: "text",
                     enabled: true,
-                    top: 0,
-                    left: 0,
-                    mode: "normal"
+                    top: 692,
+                    left: 195,
+                    mode: "normal",
+                    size: 18,
                 },
-                length: {
+                mapLength: {
+                    type: "text",
                     enabled: true,
-                    top: 0,
-                    left: 0,
-                    mode: "normal"
+                    top: 833,
+                    left: 77,
+                    mode: "normal",
+                    size: 18,
                 },
                 bpm: {
+                    type: "text",
                     enabled: true,
-                    top: 0,
-                    left: 0,
-                    mode: "normal"
+                    top: 833,
+                    left: 195,
+                    mode: "normal",
+                    size: 18,
                 },
                 sr: {
+                    type: "text",
                     enabled: true,
-                    top: 0,
-                    left: 0,
-                    mode: "normal"
+                    top: 900,
+                    left: 132,
+                    mode: "normal",
+                    size: 18,
                 },
             
                 mapID: {
+                    type: "text",
                     enabled: true,
-                    top: 0,
-                    left: 0,
-                    mode: "normal"
+                    top: 950,
+                    left: 120,
+                    mode: "accent",
+                    size: 18,
                 },
             },
 
             player: {
                 playerAvatar: {
+                    type: "image",
                     enabled: true,
-                    top: 0,
-                    left: 0,
-                    mode: "normal"
+                    top: 330,
+                    left: 1680,
+                    width: 240,
+                    height: 240,
                 },
     
                 username: {
+                    type: "text",
                     enabled: true,
-                    top: 0,
-                    left: 0,
-                    mode: "normal"
+                    top: 570,
+                    left: 1800,
+                    mode: "accent",
+                    size: 18,
                 },
                 rank: {
+                    type: "text",
                     enabled: true,
-                    top: 0,
-                    left: 0,
-                    mode: "normal"
+                    top: 600,
+                    left: 1800,
+                    mode: "normal",
+                    size: 18,
                 },
                 
                 count300: {
+                    type: "text",
                     enabled: true,
-                    top: 0,
-                    left: 0,
-                    mode: "normal"
+                    top: 672,
+                    left: 1758,
+                    mode: "normal",
+                    size: 16,
                 },
                 count100: {
+                    type: "text",
                     enabled: true,
-                    top: 0,
-                    left: 0,
-                    mode: "normal"
+                    top: 672,
+                    left: 1880,
+                    mode: "normal",
+                    size: 16,
                 },
                 count50: {
+                    type: "text",
                     enabled: true,
-                    top: 0,
-                    left: 0,
-                    mode: "normal"
+                    top: 742,
+                    left: 1758,
+                    mode: "normal",
+                    size: 16,
                 },
                 countMiss: {
+                    type: "text",
                     enabled: true,
-                    top: 0,
-                    left: 0,
-                    mode: "normal"
+                    top: 742,
+                    left: 1880,
+                    mode: "normal",
+                    size: 16,
                 },
             
                 maxCombo: {
+                    type: "text",
                     enabled: true,
-                    top: 0,
-                    left: 0,
-                    mode: "normal"
+                    top: 810,
+                    left: 1800,
+                    mode: "normal",
+                    size: 18,
                 },
-                accuracy: {
+                displayAcc: {
+                    type: "text",
                     enabled: true,
-                    top: 0,
-                    left: 0,
-                    mode: "normal"
+                    top: 875,
+                    left: 1800,
+                    mode: "normal",
+                    size: 18,
                 },
-                score: {
+                displayScore: {
+                    type: "text",
                     enabled: true,
-                    top: 0,
-                    left: 0,
-                    mode: "normal"
+                    top: 942,
+                    left: 1800,
+                    mode: "normal",
+                    size: 18,
                 },
             }
         }

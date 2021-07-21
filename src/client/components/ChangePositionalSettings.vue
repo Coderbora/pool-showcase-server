@@ -4,13 +4,13 @@
     @closeModal="$emit('closeModal')"
   >
     <h6>{{ selectedSetting }}</h6>
-    <br>
+    <hr>
     <template
       v-for="key in Object.keys(setting)"
       :key="key"
     >
       <TextInput
-        v-if="['string', 'number'].includes(typeof setting[key])"
+        v-if="['string', 'number'].includes(typeof setting[key]) && key !== 'type'"
         :input-name="key"
         :value="setting[key]"
         @changeValue="setting[key] = typeof setting[key] == 'number' ? Number($event) : $event"

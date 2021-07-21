@@ -7,13 +7,14 @@ import * as path from "path";
 import * as express from "express";
 import * as history from 'connect-history-api-fallback';
 
-import { Map } from '../shared/types';
+import { Map, ShowSettings } from '../shared/types';
 
 const PORT = 9000;
 const webApp = express();
 const upload = multer();
 
 let showcasePool = [] as Map[];
+let showSettings = {} as ShowSettings;
 
 function createWindow() {
 
@@ -42,6 +43,16 @@ app.on("ready", () => {
 
   webApp.post("/showcasePool", (req, res) => {
     showcasePool = req.body;
+    res.sendStatus(200);
+  });
+
+  webApp.get("/showSettings", (req, res) => {
+    res.send(showSettings);
+  });
+
+  webApp.post("/showSettings", (req, res) => {
+    showSettings = req.body;
+    res.sendStatus(200);
   });
 
   webApp.post("/readReplay", upload.single('replay'), (req, res) => {
