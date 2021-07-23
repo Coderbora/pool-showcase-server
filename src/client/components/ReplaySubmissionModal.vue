@@ -12,6 +12,11 @@
       <div class="row justify-content-center my-2">
         <div class="col-6 form-group">
           <TextInput
+            input-name="Player Name"
+            :value="map.playedBy.username"
+            @changeValue="changePlayerName($event)"
+          />
+          <TextInput
             input-name="Profile Image URL"
             :value="map.playedBy.playerAvatar"
             @changeValue="changeAvatar($event)"
@@ -182,6 +187,12 @@ export default defineComponent({
       const copyPool = [...this.showcasePool];
       const player = copyPool[copyPool.indexOf(this.map)].playedBy;
       if(player) player.playerAvatar = avatar;
+      this.showcasePool = copyPool;
+    },
+    changePlayerName(playername: string) {
+      const copyPool = [...this.showcasePool];
+      const player = copyPool[copyPool.indexOf(this.map)].playedBy;
+      if(player) player.username = playername;
       this.showcasePool = copyPool;
     },
     changeBeatmapImage(image: string) {

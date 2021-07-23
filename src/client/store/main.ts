@@ -26,7 +26,7 @@ export const store = createStore<MainState>({
             normalColor: "#70D4FF",
             accentColor: "#FF5CFF",
             textFont: "https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap",
-            defaultImage: "",
+            defaultImage: "https://cdn.jsdelivr.net/gh/Coderbora/pool-showcase-server@master/build/icons/icon.png",
 
             map: {
                 img_url: {

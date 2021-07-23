@@ -252,7 +252,7 @@ export default defineComponent({
             }
           }
         }
-        this.showcasePool = [mapScheme, ...this.showcasePool];
+        this.showcasePool = [...this.showcasePool, mapScheme];
       }
       this.$emit("closeModal");
     }
