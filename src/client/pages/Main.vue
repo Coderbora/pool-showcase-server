@@ -17,6 +17,10 @@
     :selected-setting="selectedSetting"
     @closeModal="changePositionalSettingsModalToggle"
   />
+  <PoolReplayDetailsModal
+    :active="poolReplayDetailsModal"
+    @closeModal="poolReplayDetailsToggle"
+  />
   <div class="container">
     <div class="card my-3">
       <div class="card-header">
@@ -92,6 +96,13 @@
         </button>
         <button
           type="button"
+          class="btn btn-primary mx-2"
+          @click="poolReplayDetailsToggle"
+        >
+          Get Pool Replay Details
+        </button>
+        <button
+          type="button"
           class="btn btn-danger mx-2"
           @click="showcasePool = []"
         >
@@ -153,6 +164,7 @@ import AddMapModal from '../components/AddMapModal.vue';
 import ImportMapsModal from '../components/ImportMapsModal.vue';
 import ReplaySubmissionModal from '../components/ReplaySubmissionModal.vue';
 import ChangePositionalSettings from '../components/ChangePositionalSettings.vue';
+import PoolReplayDetailsModal from '../components/PoolReplayDetailsModal.vue';
 
 import axios from 'axios';
 
@@ -163,7 +175,8 @@ export default defineComponent({
     AddMapModal,
     ImportMapsModal,
     ReplaySubmissionModal,
-    ChangePositionalSettings
+    ChangePositionalSettings,
+    PoolReplayDetailsModal
   },
   data() {
     return {
@@ -175,6 +188,8 @@ export default defineComponent({
 
       changePositionalSettingsModal: false,
       selectedSetting: "",
+
+      poolReplayDetailsModal: false,
     }
   },
   computed: {
@@ -207,24 +222,29 @@ export default defineComponent({
     addMapModalToggle() {
       const body = document.querySelector("body")
       this.addMapModal = !this.addMapModal
-      this.addMapModal || this.importMapsModal || this.replaySubmissionModal || this.changePositionalSettingsModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
+      this.addMapModal || this.importMapsModal || this.replaySubmissionModal || this.changePositionalSettingsModal || this.poolReplayDetailsModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
     },
     importMapsModalToggle() {
       const body = document.querySelector("body")
       this.importMapsModal = !this.importMapsModal
-      this.addMapModal || this.importMapsModal || this.replaySubmissionModal || this.changePositionalSettingsModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
+      this.addMapModal || this.importMapsModal || this.replaySubmissionModal || this.changePositionalSettingsModal || this.poolReplayDetailsModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
     },
     replaySubmissionModalToggle(map: Map) {
       this.replaySubmissionSelectedMap = map;
       const body = document.querySelector("body")
       this.replaySubmissionModal = !this.replaySubmissionModal
-      this.addMapModal || this.importMapsModal || this.replaySubmissionModal || this.changePositionalSettingsModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
+      this.addMapModal || this.importMapsModal || this.replaySubmissionModal || this.changePositionalSettingsModal || this.poolReplayDetailsModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
     },
     changePositionalSettingsModalToggle() {
       if (this.selectedSetting === "") return;
       const body = document.querySelector("body")
       this.changePositionalSettingsModal = !this.changePositionalSettingsModal
-      this.addMapModal || this.importMapsModal || this.replaySubmissionModal || this.changePositionalSettingsModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
+      this.addMapModal || this.importMapsModal || this.replaySubmissionModal || this.changePositionalSettingsModal || this.poolReplayDetailsModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
+    },
+    poolReplayDetailsToggle() {
+      const body = document.querySelector("body")
+      this.poolReplayDetailsModal = !this.poolReplayDetailsModal
+      this.addMapModal || this.importMapsModal || this.replaySubmissionModal || this.changePositionalSettingsModal || this.poolReplayDetailsModal ? body?.classList.add("modal-open") : body?.classList.remove("modal-open")
     },
     changeSettings() {
       this.showSettings = { ...this.showSettings };
