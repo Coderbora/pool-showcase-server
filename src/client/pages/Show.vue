@@ -186,6 +186,7 @@ body.transparent {
 
 .image {
   background-size: cover !important;
+  background-position: center center !important;
 }
 
 .overflow {
