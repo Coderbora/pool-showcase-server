@@ -27,7 +27,10 @@
             color: showSettings[key][component]['mode'] == 'accent' ? showSettings['accentColor'] : showSettings['normalColor']
           }"
         >
-          {{ getComponentValue(key, component) }}
+          <marquee v-if="isOverflow(key, component)">
+            {{ getComponentValue(key, component) }}
+          </marquee>
+          <span v-else>{{ getComponentValue(key, component) }}</span>
         </div>
         <div
           v-else-if="showSettings[key][component]['type'] === 'image'"
@@ -56,6 +59,8 @@ export default defineComponent({
         pool: [] as Map[],
         showSettings: {} as ShowSettings,
         fontName: "",
+
+        canvas: document.createElement("canvas")
       }
     },
     async created() {
@@ -81,6 +86,19 @@ export default defineComponent({
       this.map = this.pool.find(m => m.modpool.toLowerCase() === modpool.toLowerCase() && m.modpool_id == modpool_id )
     },
     methods: {
+      isOverflow(mainKey: string, subKey: string) {
+        let componentText = this.getComponentValue(mainKey, subKey);
+
+        let context = this.canvas.getContext("2d");
+        if(!context) return false;
+
+        let mainSetting = this.showSettings[mainKey as keyof ShowSettings];
+        context.font = `${ mainSetting[subKey as keyof typeof mainSetting]['size'] }pt ${this.fontName}`
+
+        const { width } = context.measureText(componentText);
+
+        return width >= mainSetting[subKey as keyof typeof mainSetting]['maxWidth'];
+      },
       getComponentValue(mainKey: string, subKey: string): string {
         if(this.map && this.map.diff) {
           if (mainKey == "player" && this.map.playedBy) {
@@ -168,6 +186,18 @@ body.transparent {
 
 .image {
   background-size: cover !important;
+}
+
+.overflow {
+  animation-name: bounce;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes bounce {
+    0% {  transform: translateX(10%)    }
+    50%   {  transform: translateX(-100%) }
+    100% {  transform: translateX(10%)    }
 }
 
 div.anchor {

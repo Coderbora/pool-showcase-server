@@ -69,10 +69,10 @@ export const store = createStore<MainState>({
                     type: "text",
                     enabled: true,
                     top: 680,
-                    left: 130,
+                    left: 135,
                     mode: "normal",
                     size: 18,
-                    maxWidth: 180,
+                    maxWidth: 170,
                 },
                 
                 cs: {
