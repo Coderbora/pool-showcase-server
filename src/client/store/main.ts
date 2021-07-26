@@ -65,11 +65,20 @@ export const store = createStore<MainState>({
                     size: 18,
                     maxWidth: 240,
                 },
+                mapper: {
+                    type: "text",
+                    enabled: true,
+                    top: 680,
+                    left: 130,
+                    mode: "normal",
+                    size: 18,
+                    maxWidth: 180,
+                },
                 
                 cs: {
                     type: "text",
                     enabled: true,
-                    top: 692,
+                    top: 740,
                     left: 77,
                     mode: "normal",
                     size: 18,
@@ -78,7 +87,7 @@ export const store = createStore<MainState>({
                 ar: {
                     type: "text",
                     enabled: true,
-                    top: 763,
+                    top: 800,
                     left: 195,
                     mode: "normal",
                     size: 18,
@@ -87,7 +96,7 @@ export const store = createStore<MainState>({
                 od: {
                     type: "text",
                     enabled: true,
-                    top: 763,
+                    top: 800,
                     left: 77,
                     mode: "normal",
                     size: 18,
@@ -96,7 +105,7 @@ export const store = createStore<MainState>({
                 hp: {
                     type: "text",
                     enabled: true,
-                    top: 692,
+                    top: 740,
                     left: 195,
                     mode: "normal",
                     size: 18,
@@ -105,7 +114,7 @@ export const store = createStore<MainState>({
                 mapLength: {
                     type: "text",
                     enabled: true,
-                    top: 833,
+                    top: 860,
                     left: 77,
                     mode: "normal",
                     size: 18,
@@ -114,7 +123,7 @@ export const store = createStore<MainState>({
                 bpm: {
                     type: "text",
                     enabled: true,
-                    top: 833,
+                    top: 860,
                     left: 195,
                     mode: "normal",
                     size: 18,
@@ -123,7 +132,7 @@ export const store = createStore<MainState>({
                 sr: {
                     type: "text",
                     enabled: true,
-                    top: 900,
+                    top: 920,
                     left: 132,
                     mode: "normal",
                     size: 18,
@@ -133,7 +142,7 @@ export const store = createStore<MainState>({
                 mapID: {
                     type: "text",
                     enabled: true,
-                    top: 950,
+                    top: 970,
                     left: 120,
                     mode: "accent",
                     size: 40,

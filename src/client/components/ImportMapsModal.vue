@@ -97,6 +97,7 @@ function defaultBeatmapScheme() {
       artist: "",
       version: "",
       img_url: "",
+      mapper: "",
 
       diff: {
           cs: 0,
@@ -169,6 +170,7 @@ export default defineComponent({
         title: mapDetails[0].title,
         artist: mapDetails[0].artist,
         version: mapDetails[0].version,
+        mapper: mapDetails[0].creator,
         img_url: `https://assets.ppy.sh/beatmaps/${mapDetails[0].beatmapset_id}/covers/list@2x.jpg`,
         diff: {
           cs: mapDetails[0].diff_size,

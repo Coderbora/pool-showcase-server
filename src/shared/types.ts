@@ -11,6 +11,7 @@ export interface Map extends Record<string, unknown> {
     artist: string,
     version: string,
     img_url: string,
+    mapper: string,
 
     diff: {
         cs: number,
@@ -73,6 +74,7 @@ export interface ShowMapDetails {
     artist: ComponentDetails,
     songName: ComponentDetails,
     version: ComponentDetails,
+    mapper: ComponentDetails,
     
     cs: ComponentDetails,
     ar: ComponentDetails,

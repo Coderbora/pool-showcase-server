@@ -19,6 +19,7 @@
       >
         <div
           v-if="showSettings[key][component]['type'] === 'text'"
+          :id="'component_' + [key, component].join('/')"
           class="component"
           :style="{ 
             fontSize: showSettings[key][component]['size']+'pt',
@@ -161,7 +162,6 @@ body.transparent {
 .component {
   margin-left: -50%;
   float: left;
-  text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
