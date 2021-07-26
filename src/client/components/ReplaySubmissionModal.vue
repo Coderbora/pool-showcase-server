@@ -51,6 +51,11 @@
           :value="map.img_url"
           @changeValue="changeBeatmapImage($event)"
         />
+        <TextInput
+          input-name="Mapper Name"
+          :value="map.mapper"
+          @changeValue="changeMapper($event)"
+        />
       </div>
     </div>
     <button
@@ -198,6 +203,11 @@ export default defineComponent({
     changeBeatmapImage(image: string) {
       const copyPool = [...this.showcasePool];
       copyPool[copyPool.indexOf(this.map)].img_url = image;
+      this.showcasePool = copyPool;
+    },
+    changeMapper(mapper: string) {
+      const copyPool = [...this.showcasePool];
+      copyPool[copyPool.indexOf(this.map)].mapper = mapper;
       this.showcasePool = copyPool;
     }
   }
