@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="pool.length > 0"
     class="main"
     :style="{ fontFamily: fontName }"
   >
@@ -50,6 +51,7 @@
 import axios from 'axios';
 import { defineComponent } from 'vue'
 import { Map, Player, ShowMapDetails, ShowPlayerDetails, ShowSettings } from '../../shared/types';
+import calculateSize from 'calculate-size';
 
 export default defineComponent({
     name: "Show",
@@ -59,8 +61,6 @@ export default defineComponent({
         pool: [] as Map[],
         showSettings: {} as ShowSettings,
         fontName: "",
-
-        canvas: document.createElement("canvas")
       }
     },
     async created() {
@@ -89,14 +89,14 @@ export default defineComponent({
       isOverflow(mainKey: string, subKey: string) {
         let componentText = this.getComponentValue(mainKey, subKey);
 
-        let context = this.canvas.getContext("2d");
-        if(!context) return false;
-
         let mainSetting = this.showSettings[mainKey as keyof ShowSettings];
-        context.font = `${ mainSetting[subKey as keyof typeof mainSetting]['size'] }pt ${this.fontName}`
+  
+        const width = calculateSize(componentText, {
+          font: this.fontName,
+          fontSize: `${ mainSetting[subKey as keyof typeof mainSetting]['size'] }pt`
+        }).width * 1.1; //error margin
 
-        const { width } = context.measureText(componentText);
-
+        console.log (componentText, `${ mainSetting[subKey as keyof typeof mainSetting]['size'] }pt ${this.fontName}`, width, mainSetting[subKey as keyof typeof mainSetting]['maxWidth'], width >= mainSetting[subKey as keyof typeof mainSetting]['maxWidth'])
         return width >= mainSetting[subKey as keyof typeof mainSetting]['maxWidth'];
       },
       getComponentValue(mainKey: string, subKey: string): string {
@@ -203,5 +203,9 @@ body.transparent {
 
 div.anchor {
   position: absolute;
+}
+
+.measure {
+  visibility: hidden;
 }
 </style>

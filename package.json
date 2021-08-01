@@ -1,6 +1,6 @@
 {
   "name": "pool-showcase-server",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "osu! Mappool Showcase Server",
   "main": "dist/electron/main.js",
   "scripts": {
@@ -46,6 +46,7 @@
     "@brunohpaiva/osu-parser": "^0.2.3",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+    "calculate-size": "^1.1.1",
     "connect-history-api-fallback": "^1.6.0",
     "express": "^4.17.1",
     "jquery": "^3.6.0",
@@ -59,12 +60,16 @@
   "build": {
     "appId": "com.coderbora.poolshowcaseserver",
     "productName": "Pool Showcase Server",
-    "files": ["dist/**/*", "build/**/*", "node_modules/**/*"],
+    "files": [
+      "dist/**/*",
+      "build/**/*",
+      "node_modules/**/*"
+    ],
     "directories": {
       "output": "release",
       "buildResources": "build"
     },
-    "asar":true,
+    "asar": true,
     "win": {
       "icon": "build/icons/icon.png",
       "target": [
@@ -73,7 +78,7 @@
     },
     "nsis": {
       "runAfterFinish": true,
-      "license":"LICENSE.md"
+      "license": "LICENSE.md"
     }
   }
 }

@@ -103,6 +103,13 @@
         </button>
         <button
           type="button"
+          class="btn btn-primary mx-2"
+          @click="resetSettings"
+        >
+          Reset Settings
+        </button>
+        <button
+          type="button"
           class="btn btn-danger mx-2"
           @click="showcasePool = []"
         >
@@ -167,6 +174,7 @@ import ChangePositionalSettings from '../components/ChangePositionalSettings.vue
 import PoolReplayDetailsModal from '../components/PoolReplayDetailsModal.vue';
 
 import axios from 'axios';
+import { getDefaultSettings } from '../store/main';
 
 export default defineComponent({
   name: "Main",
@@ -248,6 +256,9 @@ export default defineComponent({
     },
     changeSettings() {
       this.showSettings = { ...this.showSettings };
+    },
+    resetSettings() {
+      this.showSettings = getDefaultSettings();
     },
     async sync() {
       await axios.post("/showcasePool", this.showcasePool, { headers: {
