@@ -16,6 +16,7 @@ const router = createRouter({
     routes: [
         { path: '/', component: Home },
         { path: '/main', component: Main },
+        { path: '/show/:modpool', component: Show},
         { path: '/show/:modpool/:modpoolid', component: Show}
     ]
 });

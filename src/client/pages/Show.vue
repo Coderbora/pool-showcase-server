@@ -81,9 +81,13 @@ export default defineComponent({
       document.body.className = 'transparent';
 
       const modpool = this.$route.params.modpool.toString();
-      const modpool_id = Number(this.$route.params.modpoolid.toString());
+      if("modpoolid" in this.$route.params) {
+        const modpool_id = Number(this.$route.params.modpoolid.toString());
 
-      this.map = this.pool.find(m => m.modpool.toLowerCase() === modpool.toLowerCase() && m.modpool_id == modpool_id )
+        this.map = this.pool.find(m => m.modpool.toLowerCase() === modpool.toLowerCase() && m.modpool_id == modpool_id )
+      } else {
+        this.map = this.pool.find(m => m.modpool.toLowerCase() === modpool.toLowerCase());
+      }
     },
     methods: {
       isOverflow(mainKey: string, subKey: string) {
