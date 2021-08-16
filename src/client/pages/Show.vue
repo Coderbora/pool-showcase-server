@@ -94,11 +94,13 @@ export default defineComponent({
         let componentText = this.getComponentValue(mainKey, subKey);
 
         let mainSetting = this.showSettings[mainKey as keyof ShowSettings];
+
+        let margin = isNaN(Number(this.showSettings.errorMargin)) ? 1.2 : Number(this.showSettings.errorMargin);
   
         const width = calculateSize(componentText, {
           font: this.fontName,
           fontSize: `${ mainSetting[subKey as keyof typeof mainSetting]['size'] }pt`
-        }).width * 1.1; //error margin
+        }).width * margin; //error margin
 
         console.log (componentText, `${ mainSetting[subKey as keyof typeof mainSetting]['size'] }pt ${this.fontName}`, width, mainSetting[subKey as keyof typeof mainSetting]['maxWidth'], width >= mainSetting[subKey as keyof typeof mainSetting]['maxWidth'])
         return width >= mainSetting[subKey as keyof typeof mainSetting]['maxWidth'];

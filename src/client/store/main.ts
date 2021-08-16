@@ -11,6 +11,8 @@ export function getDefaultSettings(): ShowSettings {
         textFont: "https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap",
         defaultImage: "https://cdn.jsdelivr.net/gh/Coderbora/pool-showcase-server@master/build/icons/icon.png",
 
+        errorMargin: "1.2",
+        
         map: {
             img_url: {
                 type: "image",

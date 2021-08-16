@@ -109,6 +109,8 @@ export interface ShowSettings {
     textFont: string,
     defaultImage: string,
 
+    errorMargin: string,
+
     map: ShowMapDetails,
 
     player: ShowPlayerDetails,
