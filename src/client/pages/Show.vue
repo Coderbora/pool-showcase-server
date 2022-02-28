@@ -136,7 +136,7 @@ export default defineComponent({
                 case "mapLength": {
                   let minutes = Math.floor(this.map.length / 60);
                   let seconds = this.map.length - (minutes * 60);
-                  return `${minutes}:${seconds}`;
+                  return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
                 }
                 case "songName":
                   return `${this.map.title}`;
